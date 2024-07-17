@@ -1,0 +1,29 @@
+- name: Start Tomcat-Manage
+  service:
+    name: tomcat-manage
+    state: started
+  when: deploy_war_files.manager_war_exist
+
+- name: Start Tomcat-Restful
+  service:
+    name: tomcat-restful
+    state: started
+  when: deploy_war_files.restful_war_exist
+
+- name: Start Tomcat-Chat
+  service:
+    name: tomcat-chat
+    state: started
+  when: deploy_war_files.server_war_exist
+
+- name: Start Tomcat-Legacy
+  service:
+    name: tomcat-legacy
+    state: started
+  when: deploy_war_files.legacy_war_exist
+
+- name: Start Apache
+  service:
+    name: apache
+    state: started
+

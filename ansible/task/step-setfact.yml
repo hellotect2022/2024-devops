@@ -1,0 +1,33 @@
+- name: server.war file exist check
+  local_action:
+    module: ansible.builtin.stat
+    path: /home/appservice/ansible/server.war
+  register: server_war_file
+
+- name: restful.war file check
+  local_action:
+    module: ansible.builtin.stat
+    path: /home/appservice/ansible/restful.war
+  register: restful_war_file
+
+- name: manager.war file check
+  local_action:
+    module: ansible.builtin.stat
+    path: /home/appservice/ansible/manager.war
+  register: manager_war_file
+
+- name: legacy.war file check
+  local_action:
+    module: ansible.builtin.stat
+    path: /home/appservice/ansible/legacy.war
+  register: legacy_war_file
+
+- name: Set custom fact for server war file existence
+  set_fact:
+    deploy_war_files:
+      server_war_exist: "{{ server_war_file.stat.exists | default(false) }}"
+      restful_war_exist: "{{ restful_war_file.stat.exists | default(false) }}"
+      manager_war_exist: "{{ manager_war_file.stat.exists | default(false) }}"
+      legacy_war_exist: "{{ legacy_war_file.stat.exists | default(false) }}"
+    backup_file: "{{ ansible_date_time.date | regex_replace('[-:]','') }}"
+

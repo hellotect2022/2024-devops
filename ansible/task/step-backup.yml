@@ -1,0 +1,39 @@
+- name: Check exists backup directory
+  # stat 값 등록 path 정보 유무를 backup_dir 변수에 저장
+  ansible.builtin.stat:
+    path: "{{root_dir}}/app/backup/{{ backup_file }}"
+  register: backup_dir
+
+- name: Create backup directory
+  # 파일 경로 생성
+  ansible.builtin.file:
+    path: "{{root_dir}}/app/backup/{{ backup_file }}"
+    state: directory
+  when: not backup_dir.stat.exists
+
+
+- name: Backup server.war
+  ansible.builtin.shell: |
+     cp "{{ root_dir }}/app/ui/chat/server.war" "{{ root_dir }}/app/backup/{{ backup_file }}/server.war" &&
+     echo "Backup server.war -> success"
+  ignore_errors: yes
+  when: deploy_war_files.server_war_exist
+
+- name: Backup restful.war
+  ansible.builtin.shell:
+    cmd: cp "{{ root_dir }}/app/ui/cms/restful.war" "{{ root_dir }}/app/backup/{{ backup_file }}/restful.war"
+  ignore_errors: yes
+  when: deploy_war_files.restful_war_exist
+
+- name: Backup manager.war
+  ansible.builtin.shell:
+    cmd: cp "{{ root_dir }}/app/ui/cms/manager.war" "{{ root_dir }}/app/backup/{{ backup_file }}/manager.war"
+  ignore_errors: yes
+  when: deploy_war_files.manager_war_exist
+
+- name: Backup legacy.war
+  ansible.builtin.shell:
+    cmd: cp "{{ root_dir }}/app/ui/legacy/legacy.war" "{{ root_dir }}/app/backup/{{ backup_file }}/legacy.war"
+  ignore_errors: yes
+  when: deploy_war_files.legacy_war_exist
+

@@ -1,0 +1,56 @@
+######## server ########
+
+- name: Transfer server.war
+  ansible.builtin.copy:
+    src: /home/appservice/ansible/server.war
+    dest: "{{ root_dir }}/app/ui/chat/server.war"
+  when: deploy_war_files.server_war_exist
+
+- name: Remove server.war from host
+  ansible.builtin.file:
+    path: "{{ root_dir }}/app/ui/chat/server"
+    state: absent
+  when: deploy_war_files.server_war_exist
+
+######## restful ########
+
+- name: Transfer restful.war
+  ansible.builtin.copy:
+    src: /home/appservice/ansible/restful.war
+    dest: "{{ root_dir }}/app/ui/cms/restful.war"
+  when: deploy_war_files.restful_war_exist
+
+- name: Remove restful.war from host
+  ansible.builtin.file:
+    path: "{{ root_dir }}/app/ui/cms/restful"
+    state: absent
+  when: deploy_war_files.restful_war_exist  
+
+######## manager ########
+
+- name: Transfer manager.war
+  ansible.builtin.copy:
+    src: /home/appservice/ansible/manager.war
+    dest: "{{ root_dir }}/app/ui/cms/manager.war"
+  when: deploy_war_files.manager_war_exist
+
+- name: Remove manager.war from host
+  ansible.builtin.file:
+    path: "{{ root_dir }}/app/ui/cms/manager"
+    state: absent
+  when: deploy_war_files.manager_war_exist  
+
+######## legacy ########
+
+- name: Transfer legacy.war
+  ansible.builtin.copy:
+    src: /home/appservice/ansible/legacy.war
+    dest: "{{ root_dir }}/app/ui/legacy/legacy.war"
+  when: deploy_war_files.legacy_war_exist
+
+- name: Remove server.war from host
+  ansible.builtin.file:
+    path: "{{ root_dir }}/app/ui/legacy/legacy"
+    state: absent
+  when: deploy_war_files.legacy_war_exist  
+

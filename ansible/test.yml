@@ -1,0 +1,29 @@
+- name: Deploy war
+  # inventory 파일에 정의한 서버 그룹 정보
+  hosts: keydb_server  #enter_server, deploy_server, eidc_server
+  # 대상 서버에서 시스템 정보를 자동으로 수집
+  gather_facts: true 
+
+  tasks:
+    - name: Set facts
+      include_tasks: task/step-setfact.yml      
+
+    - name: Backup files
+      include_tasks: task/step-backup.yml
+      when: false
+
+    - name: Backup properties
+      include_tasks: task/step-backup-properties.yml
+      when: true
+
+    - name: Stop Services
+      include_tasks: task/step-stop.yml 
+      when: false
+
+    - name: Transfer Services
+      include_tasks: task/step-transfer.yml
+      when: false
+
+    - name: Start Services
+      include_tasks: task/step-start.yml  
+      when: false

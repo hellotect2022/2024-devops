@@ -1,0 +1,25 @@
+#[enter_server] # 엔터 운영서버1
+#10.10.10.101 ansible_ssh_user=eumadm ansible_become=true ansible_become_password=8QBCYq8V4vQ6
+#10.10.10.102 ansible_ssh_user=eumadm ansible_become=true ansible_become_password=8QBCYq8V4vQ6
+#10.10.10.103 ansible_ssh_user=eumadm ansible_become=true ansible_become_password=8QBCYq8V4vQ6
+
+[deploy_server] # 엔터 배포서버 수행팀이 사용
+192.168.12.34 ansible_ssh_user=appservice ansible_become=true ansible_become_password=H36iUxBhTM9a
+
+[eidc_server]   # 하랑 사업팀E-IDC 서버
+192.168.11.204 ansible_ssh_user=eumadm ansible_become=true ansible_become_password=hD5h3NGpBwv5sNeE
+
+[keydb_server]
+192.168.11.174 ansible_ssh_user=eumadm ansible_become=true ansible_become_password=Covi@2020
+
+[enter_server:vars]
+root_dir=/prd
+
+[deploy_server:vars]
+root_dir=/devp
+
+[eidc_server:vars]
+root_dir=/prd
+
+[keydb_server:vars]
+root_dir=/prd

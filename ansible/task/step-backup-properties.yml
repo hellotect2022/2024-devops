@@ -1,0 +1,6 @@
+######## server ########
+
+- name: Copy host properties
+  ansible.builtin.shell: |
+    cp -r "{{ root_dir }}/app/properties" "{{ root_dir }}/app/backup/properties"
+

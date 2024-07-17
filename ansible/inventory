@@ -1,0 +1,6 @@
+
+[keydb_server]
+192.168.11.174 ansible_ssh_user=eumadm ansible_become=true ansible_become_password=Covi@2020
+
+[keydb_server:vars]
+root_dir=/prd

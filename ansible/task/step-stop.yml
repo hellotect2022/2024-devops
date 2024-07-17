@@ -1,0 +1,29 @@
+- name: Stop Tomcat-Manage
+  service:
+    name: tomcat-manage
+    state: stopped
+  when: deploy_war_files.manager_war_exist
+
+- name: Stop Tomcat-Restful
+  service:
+    name: tomcat-restful
+    state: stopped
+  when: deploy_war_files.restful_war_exist
+
+- name: Stop Tomcat-Chat
+  service:
+    name: tomcat-chat
+    state: stopped
+  when: deploy_war_files.server_war_exist
+
+- name: Stop Tomcat-Legacy
+  service:
+    name: tomcat-legacy
+    state: stopped
+  when: deploy_war_files.legacy_war_exist
+
+- name: Stop Apache
+  service:
+    name: apache
+    state: stopped
+
